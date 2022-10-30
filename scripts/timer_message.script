@@ -1,0 +1,10 @@
+go.property("delay", 10)
+go.property("path", hash(""))
+go.property("component", hash(""))
+go.property("message", hash(""))
+
+function init(self)
+	timer.delay(self.delay, false, function()
+		msg.post(msg.url(nil, self.path, self.component), self.message, message)
+	end)
+end

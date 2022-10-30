@@ -1,0 +1,18 @@
+go.property("speed", 0.5)
+
+local function spawn_enemy()
+	local x = math.random(-150, 150)
+	local size = math.random(0, 1)
+	local url
+	if size == 1 then
+		url = "#enemy_factory"
+	else
+		url = "#small_enemy_factory"
+	end
+	factory.create(url, vmath.vector3(x, 360, 0), vmath.quat_rotation_z(math.rad(180)))
+	
+end
+
+function init(self)
+	timer.delay(self.speed, true, spawn_enemy)
+end

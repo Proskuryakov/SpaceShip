@@ -1,0 +1,7 @@
+go.property("path", hash(""))
+go.property("component", hash(""))
+go.property("message", hash(""))
+
+function final(self)
+	msg.post(msg.url(nil, self.path, self.component), self.message, message)
+end

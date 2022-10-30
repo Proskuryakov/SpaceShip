@@ -1,0 +1,9 @@
+go.property("delay", 0.1)
+
+local function spawn_bullet()
+	factory.create("#bullet_factory")
+end
+
+function init(self)
+	timer.delay(self.delay, true, spawn_bullet)
+end

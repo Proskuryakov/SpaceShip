@@ -1,0 +1,17 @@
+go.property("score", 0)
+
+local function update_score(self) 
+	msg.post("/gui#game_gui", "score", {score = self.score})
+end
+
+function init(self)
+	msg.post("/spawner#ship_spawner", "spawn", {ignore_timer = true})
+	update_score(self)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("add_score") then 
+		self.score = self.score + message.score
+		update_score(self) 
+	end
+end

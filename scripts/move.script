@@ -1,0 +1,11 @@
+go.property("speed", 100)
+
+local up = vmath.vector3(0, 1, 0)
+
+function update(self, dt)
+	local position = go.get_position()
+	local direction = vmath.rotate(go.get_rotation(), up)
+
+	direction = direction * dt * self.speed
+	go.set_position(position + direction)
+end

@@ -1,0 +1,10 @@
+go.property("scale", 1)
+go.property("sound_url", hash(""))
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("spawn") then
+		sound.play(msg.url(nil, nil, self.sound_url))
+		local sender_position = go.get_position(sender)
+		factory.create("#factory", sender_position, nil, nil, self.scale)
+	end
+end

@@ -1,0 +1,20 @@
+go.property("hp", 5)
+go.property("damage_group", hash(""))
+
+function init(self)
+	self.current_hp = self.hp
+	-- self.boundary_hp = math.floor(self.hp / 4 +0.5)
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") and message.group == self.damage_group then 
+		self.current_hp = self.current_hp - 1
+		
+		local alpha = math.max(0.5, self.current_hp / self.hp)
+		go.set("#sprite", "tint", vmath.vector4(1, 1, 1, alpha))
+		
+		if self.current_hp == 0 then 
+			go.delete()
+		end		
+	end
+end

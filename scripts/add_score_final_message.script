@@ -1,0 +1,8 @@
+go.property("path", hash(""))
+go.property("component", hash(""))
+go.property("message", hash("add_score"))
+go.property("score", 1)
+
+function final(self)
+	msg.post(msg.url(nil, self.path, self.component), self.message, {score = self.score})
+end

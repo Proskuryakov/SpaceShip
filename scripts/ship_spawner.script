@@ -1,0 +1,16 @@
+local function spawn_ship()
+	factory.create("#ship_factory", vmath.vector3())
+end
+
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("spawn") then 
+		if not message.ignore_timer then
+			timer.delay(2, false, function() 
+				spawn_ship()
+			end)
+		else
+			spawn_ship()
+		end
+	end
+end

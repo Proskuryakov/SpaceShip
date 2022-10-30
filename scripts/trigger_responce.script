@@ -1,0 +1,11 @@
+go.property("mask", hash(""))
+go.property("path", hash(""))
+go.property("component", hash(""))
+go.property("message", hash(""))
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") and message.group == hash(self.mask) then
+		msg.post(msg.url(nil, self.path, self.component), self.message, message)
+		-- print("death")
+	end
+end

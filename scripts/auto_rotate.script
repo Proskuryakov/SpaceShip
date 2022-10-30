@@ -1,0 +1,10 @@
+go.property("speed", 0)
+
+function init(self)
+	self.angle = math.random(0, 360)
+end
+
+function update(self, dt)
+	-- self.angle = self.angle + self.speed * dt
+	-- go.set(".", "euler.z", self.angle)
+end
