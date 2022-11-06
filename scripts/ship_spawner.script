@@ -1,5 +1,5 @@
 local function spawn_ship()
-	factory.create("#ship_factory", vmath.vector3())
+	collectionfactory.create("#ship_factory", vmath.vector3())
 end
 
 

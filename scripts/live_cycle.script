@@ -1,0 +1,8 @@
+function init(self)
+	print("init", go.get_id())
+	msg.post(msg.url("main", "/game_manager", "game"), "print", {msg = "hello"})
+end
+
+function final(self)
+	print("final", go.get_id())
+end

@@ -1,0 +1,12 @@
+go.property("hp", 5)
+go.property("damage_group", hash(""))
+
+function on_message(self, message_id, message, sender)
+	if message_id == hash("trigger_response") and message.group == self.damage_group then 
+		self.hp = self.hp - 1
+		
+		if self.hp == 0 then 
+			go.delete(true)
+		end		
+	end
+end

@@ -1,0 +1,11 @@
+function init(self)
+	msg.post(".", "acquire_input_focus")
+	self.start_button = gui.get_node("start_button")
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("touch") and action.released and gui.pick_node(self.start_button, action.x, action.y) then 
+		msg.post("level_manager#level_manager", "start_game")
+		msg.post(".", "disable")
+	end	
+end

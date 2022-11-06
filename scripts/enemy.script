@@ -14,7 +14,7 @@ function on_message(self, message_id, message, sender)
 		go.set("#sprite", "tint", vmath.vector4(1, 1, 1, alpha))
 		
 		if self.current_hp == 0 then 
-			go.delete()
+			go.delete(true)
 		end		
 	end
 end

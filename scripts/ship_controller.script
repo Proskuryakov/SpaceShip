@@ -1,21 +1,17 @@
 local camera = require "orthographic.camera"
 
 function init(self)
-	go.animate("#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(2, 2, 2, 1), go.EASING_LINEAR, 0.3)
+	go.animate("body#sprite", "tint", go.PLAYBACK_LOOP_PINGPONG, vmath.vector4(2, 2, 2, 1), go.EASING_LINEAR, 0.3)
 	msg.post(".", "acquire_input_focus")
 	physics.set_maskbit("#collisionobject", "enemy", false)
 	timer.delay(2, false, function() 
 		physics.set_maskbit("#collisionobject", "enemy", true)
-		go.cancel_animations("#sprite", "tint")
-		go.set("#sprite", "tint", vmath.vector4(1))
+		go.cancel_animations("body#sprite", "tint")
+		go.set("body#sprite", "tint", vmath.vector4(1))
 	end)
 end
 
 function on_message(self, message_id, message, sender)
-	-- if message_id == hash("trigger_response") then
-	-- 	print("hit") 
-	-- end
-	
 	if message_id == hash("hit") then
 		print("hit" .. sender) 
 	end
@@ -24,6 +20,10 @@ end
 function on_input(self, action_id, action)
 	if action_id == hash("touch") then 
 		local position = camera.screen_to_world(hash("/camera"), vmath.vector3(action.x, action.y, 0))
-		go.set_position(position)
+		go.set_position(position, go.get_parent("."))
 	end	
+end
+
+function final(self)
+	msg.post("/game_manager#game", "ship_death")
 end
