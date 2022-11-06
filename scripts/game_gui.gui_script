@@ -1,9 +1,47 @@
+local function get_new_position(node) 
+	local position = gui.get_position(node)
+	local size = gui.get_size(node)
+	local scale = gui.get_scale(node)
+	position.x = position.x + size.x * scale.x * 1.5
+
+	return position
+end
+
+local function init_lifes(self, count_life)
+	for i = 2, count_life do
+		local new_life_node = gui.clone(self.lifes [i - 1]);
+		gui.set_position(new_life_node, get_new_position(new_life_node))
+		table.insert(self.lifes, new_life_node)
+	end
+end
+
 function init(self)
+	msg.post(".", "acquire_input_focus")
 	self.score_text = gui.get_node("score_text")
+	self.menu_button = gui.get_node("menu_button")
+	self.ship_life = gui.get_node("ship_life")
+
+	self.lifes = {self.ship_life}
 end
 
 function on_message(self, message_id, message, sender)
 	if message_id == hash("score") then
 		gui.set_text(self.score_text, "Score: " .. message.score)
 	end
+	
+	if message_id == hash("init_life") then
+		init_lifes(self, message.ship_life)
+	end
+
+	if message_id == hash("delete_life") then
+		gui.delete_node(self.lifes[message.life])
+		table.remove(self.lifes, message.life)
+	end	
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("touch") and action.released and gui.pick_node(self.menu_button, action.x, action.y) then 
+		msg.post("main:/level_manager#level_manager", "end_game")
+		msg.post(".", "disable")
+	end	
 end

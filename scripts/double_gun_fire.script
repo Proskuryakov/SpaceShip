@@ -1,0 +1,28 @@
+go.property("start_score_step", 100)
+go.property("delay_bullet", 0.15)
+go.property("delay_double_gun", 4)
+go.property("factory", hash(""))
+
+local last_start_score = 0
+
+local function spawn_bullets(self)
+	local p = go.get_position(go.get_parent())
+	local first_p = vmath.vector3(p.x - 20, p.y, p.z)
+	local second_p = vmath.vector3(p.x + 20, p.y, p.z)
+	factory.create(msg.url(nil, nil, self.factory), first_p, nil, nil, self.scale)
+	factory.create(msg.url(nil, nil, self.factory), second_p, nil, nil, self.scale)
+end
+
+local function run_gun(self)
+	return timer.delay(self.delay_bullet, true, spawn_bullets)
+end
+
+function update(self, dt)
+	if score - last_start_score >= self.start_score_step then
+		last_start_score = score
+		local gun_timer = run_gun(self)
+		timer.delay(self.delay_double_gun, false, function()
+			timer.cancel(gun_timer)
+		end)
+	end	
+end
