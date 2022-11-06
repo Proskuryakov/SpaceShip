@@ -77,24 +77,6 @@ embedded_components {
   }
 }
 embedded_components {
-  id: "ship_factory"
-  type: "factory"
-  data: "prototype: \"/go/ship.go\"\n"
-  "load_dynamically: false\n"
-  ""
-  position {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-  }
-  rotation {
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    w: 1.0
-  }
-}
-embedded_components {
   id: "one_hit_sound"
   type: "sound"
   data: "sound: \"/assets/sounds/sfx_explosion1.ogg\"\n"
@@ -127,6 +109,24 @@ embedded_components {
   "pan: 0.0\n"
   "speed: 1.0\n"
   "loopcount: 0\n"
+  ""
+  position {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+  }
+  rotation {
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    w: 1.0
+  }
+}
+embedded_components {
+  id: "ship_factory"
+  type: "collectionfactory"
+  data: "prototype: \"/go/ship.collection\"\n"
+  "load_dynamically: false\n"
   ""
   position {
     x: 0.0

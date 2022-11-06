@@ -1,4 +1,5 @@
 go.property("score", 0)
+go.property("ship_count", 1)
 
 local function update_score(self) 
 	msg.post("/gui#game_gui", "score", {score = self.score})
@@ -14,4 +15,13 @@ function on_message(self, message_id, message, sender)
 		self.score = self.score + message.score
 		update_score(self) 
 	end
+
+	if message_id == hash("ship_death") then 
+		self.ship_count = self.ship_count - 1
+		if self.ship_count == 0 then 
+			msg.post("main:/level_manager#level_manager", "end_game")
+		end
+		print("ship_death")
+	end
+	
 end

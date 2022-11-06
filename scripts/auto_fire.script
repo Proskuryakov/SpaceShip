@@ -1,6 +1,6 @@
 go.property("delay", 0.1)
 
-local function spawn_bullet()
+local function spawn_bullet(self)
 	factory.create("#bullet_factory")
 end
 
